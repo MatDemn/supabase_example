@@ -10,11 +10,46 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+enum RoleType {
+  FRONTEND
+  BACKEND
+  FULLSTACK
+  DESIGN
+}
 
-    @@index([name])
+enum PremiumClass {
+  NONE
+  BASIC
+  ADVANCED
+  FULL
+}
+
+model Profile {
+  id        String   @id
+  createdAt DateTime @default(now()) @map("created_at")
+  email     String   @unique
+  firstName String   
+  lastName  String   
+  role      RoleType
+  skills    String[]
+  bio       String
+  github    String?
+  linkedin  String?
+  website   String?
+  premiumEndsAt        DateTime @default(now())
+  premiumClass  PremiumClass @default(NONE)
+
+  articles Article[]
+}
+
+model Article {
+  id String @id
+  createdAt DateTime @default(now()) @map("created_at")
+  title String
+  shortSummary String
+  content String
+  tags String[]
+  
+  author Profile @relation(fields: [authorId], references: [id])
+  authorId String
 }

@@ -1,44 +1,36 @@
 import { z } from "zod";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
-
-import { RoleType } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
 
 export const profileRouter = createTRPCRouter({
-  create: privateProcedure
-    .input(
-      z.object({
-        firstName: z.string(),
-        lastName: z.string(),
-        role: z.nativeEnum(RoleType),
-        skills: z.array(z.string()),
-        bio: z.string(),
-        github: z.string(),
-        linkedin: z.string(),
-        website: z.union([z.literal(""), z.string().trim().url()]),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const user = await ctx.db.profile.create({
-        data: {
-          id: ctx.user.id,
-          email: ctx.user.email!,
-          firstName: input.firstName,
-          lastName: input.lastName,
-          role: input.role,
-          skills: input.skills,
-          bio: input.bio,
-          github: input.github,
-          linkedin: input.linkedin,
-          website: input.website,
-        },
-      });
-
-      return user;
-    }),
-  getCurrent: privateProcedure.query(async ({ ctx }) => {
-    const profile = await ctx.db.profile.findUnique({
-      where: { id: ctx.user.id },
-    });
-    return profile;
+  get: privateProcedure
+  .input(
+    z.object({
+      id: z.string()
+    }))
+  .query(async ({ ctx, input }) => {
+    const {data, error} = await ctx.supabase.from("profile").select("*").eq("id", input.id).single();
+    if(!data) {
+        throw new TRPCError({
+            code: "NOT_FOUND",
+            message: error.message,
+        })
+    }
+    return data;
+  }),
+  getProfilesByRoomId: privateProcedure
+  .input(
+    z.object({
+      room_id: z.string()
+    }))
+  .query(async ({ ctx, input }) => {
+    const {data, error} = await ctx.supabase.from("roomsprofiles").select("profile(*)").eq('room_id', input.room_id);
+    if(!data) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: error.message,
+        })
+      }
+    return data;
   }),
 });

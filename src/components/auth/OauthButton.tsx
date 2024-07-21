@@ -5,7 +5,6 @@ import { redirect, usePathname } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import React from "react";
 import { Provider } from "@supabase/supabase-js";
-import { FaGithub } from "react-icons/fa";
 import { createClient } from "@/utils/supabase/client";
 
 const OauthButton: React.FC<{ provider: Provider }> = ({ provider }) => {
@@ -34,22 +33,7 @@ const OauthButton: React.FC<{ provider: Provider }> = ({ provider }) => {
       >
         <div className="flex items-center gap-2">
           <FcGoogle className="h-5 w-5" />
-          <p>Sign in with Google</p>
-        </div>
-      </Button>
-    );
-  }
-
-  if (provider === "github") {
-    return (
-      <Button
-        variant="outline"
-        className="text-muted-foreground mb-2 w-full font-normal"
-        onClick={handleLogin}
-      >
-        <div className="flex items-center gap-2">
-          <FaGithub className="h-5 w-5" />
-          <p>Sign in with GitHub</p>
+          <p>Log in with Google</p>
         </div>
       </Button>
     );

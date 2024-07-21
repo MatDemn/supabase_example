@@ -78,16 +78,6 @@ const MobileMenu: React.FC<{ toggleMenu: () => void }> = ({ toggleMenu }) => {
               Log In
             </Button>
           </Link>
-          <Link href="/signup" className="w-full sm:w-auto">
-            <Button
-              onClick={toggleMenu}
-              variant="default"
-              size="sm"
-              className="w-full"
-            >
-              Sign Up
-            </Button>
-          </Link>
         </div>
         <div className="bg-background/60 h-screen w-full sm:hidden" />
       </div>

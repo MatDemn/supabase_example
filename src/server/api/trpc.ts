@@ -1,14 +1,10 @@
 import { TRPCError, initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
-
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
-
-import { db } from "@/server/db";
+import { createClientServer } from "@/utils/supabase/server";
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const supabase = createClient(cookies());
+  const supabase = createClientServer();
   const {
     data: { user },
   } = await supabase.auth.getUser();

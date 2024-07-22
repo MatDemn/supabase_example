@@ -9,7 +9,6 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = async ({
     <div className="w-screen h-screen bg-gradient-to-r from-cyan-500 to-blue-500">
       <div className="w-full flex-1">
         {children}
-        <Toaster position="top-right" />
       </div>
     </div>
   );

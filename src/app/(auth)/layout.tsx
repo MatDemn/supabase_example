@@ -1,6 +1,6 @@
 // app/(auth)/layout.tsx
 import React from "react";
-import { createClient } from "@/utils/supabase/server";
+import { createClientServer } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import Link from "next/link";
 const RootLayout: React.FC<{ children: React.ReactNode }> = async ({
   children,
 }) => {
-  const supabase = createClient(cookies());
+  const supabase = createClientServer(cookies());
 
   const {
     data: { user },

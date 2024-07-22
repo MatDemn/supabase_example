@@ -1,8 +1,8 @@
-import { createClient } from "@/utils/supabase/server";
+import { createClientServer } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 
 export const getAuth = async () => {
-    const supabase = createClient(cookies());
+    const supabase = createClientServer(cookies());
 
     const {
         data: { user },
@@ -12,7 +12,7 @@ export const getAuth = async () => {
 }
 
 export const getSession = async () => {
-    const supabase = createClient(cookies());
+    const supabase = createClientServer(cookies());
 
     const {
         data: { session },

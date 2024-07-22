@@ -42,22 +42,25 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          owner_id: string
+          owner_id: string | null
           room_state: Database["public"]["Enums"]["RoomState"]
+          sentence: string | null
           updated_at: string
         }
         Insert: {
           created_at?: string
           id?: string
-          owner_id: string
+          owner_id?: string | null
           room_state?: Database["public"]["Enums"]["RoomState"]
+          sentence?: string | null
           updated_at?: string
         }
         Update: {
           created_at?: string
           id?: string
-          owner_id?: string
+          owner_id?: string | null
           room_state?: Database["public"]["Enums"]["RoomState"]
+          sentence?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -91,17 +94,17 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "RoomsProfiles_profileId_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profile"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "RoomsProfiles_roomId_fkey"
+            foreignKeyName: "roomsprofiles_room_id_fkey"
             columns: ["room_id"]
             isOneToOne: false
             referencedRelation: "room"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "roomsprofiles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
             referencedColumns: ["id"]
           },
         ]

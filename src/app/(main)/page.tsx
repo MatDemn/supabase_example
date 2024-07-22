@@ -1,14 +1,14 @@
-import { createClient } from "@/utils/supabase/server";
+import { createClientServer } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import NewGameForm from "@/components/main/new-game-form";
 import JoinGameForm from "@/components/main/join-game-form";
 import AuthComponent from "@/components/auth/AuthComponent";
-import InitUser from "@/lib/store/InitUser";
+import InitUser from "@/lib/store/Inits/InitUser";
 import { api } from "@/trpc/server";
 
 export default async function AuthButton() {
-  const supabase = createClient(cookies());
+  const supabase = createClientServer();
 
   const {
     data: { user },

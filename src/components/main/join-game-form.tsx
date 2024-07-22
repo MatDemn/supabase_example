@@ -28,10 +28,6 @@ const JoinGameForm = () => {
 
     const router = useRouter();
 
-    if(!user) {
-        router.push("/login");
-    }
-
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -39,23 +35,24 @@ const JoinGameForm = () => {
         }
     });
 
-    const { mutate } = api.rooms.addUser.useMutation(
-        {
-            onSuccess: (data) => {
-                router.push(`/room/${data.room_id}`);
-            },
-            onError: (e) => {
-                toast.error(e.data?.code);
-                setIsCreating(false);
-            },
-        }
-    );
+    // const { mutate } = api.rooms.get.useQuery({room_id: }
+    //     {
+    //         onSuccess: (data) => {
+    //             router.push(`/room/${data.room_id}`);
+    //         },
+    //         onError: (e) => {
+    //             toast.error(e.data?.code);
+    //             setIsCreating(false);
+    //         },
+    //     }
+    // );
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
         if(!user) return;
 
         setIsCreating(true);
-        mutate({room_id: values.invite_code, user_id: user.id});
+        router.push(`/room/${values.invite_code}`);
+        //mutate({room_id: values.invite_code, user_id: user.id});
     }
 
     return ( 

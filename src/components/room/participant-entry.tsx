@@ -5,20 +5,28 @@ import { Crown } from "lucide-react";
 import { getSession } from "@/utils/supabase/authProfile";
 import { cn } from "@/lib/utils";
 import { redirect } from "next/navigation";
+import { PlayerScores } from "@/types";
 
 interface ParticipantEntryProps {
-    participant: Tables<"profile">;
-    isOwner: boolean;
-    isThisUser: boolean;
+    playerScore: PlayerScores,
+    isThisPlayer: boolean,
 }
 
-const ParticipantEntry = ({participant, isOwner, isThisUser} : ParticipantEntryProps) => {
+const ParticipantEntry = ({playerScore, isThisPlayer } : ParticipantEntryProps) => {
     return ( 
-        <div className={cn("bg-card rounded-full p-4 flex flex-row gap-2", isThisUser ? "bg-blue-900" : "")}>
-            {participant.display_name}
-            {isOwner && 
-                <Crown className="text-yellow-400"/>
-            }
+        <div className={cn("bg-card rounded-lg p-4 flex flex-col", isThisPlayer ? "bg-primary" : "")}>
+            <div className="flex flex-row gap-2">
+                <span>{playerScore.profile.display_name}</span>
+            </div>
+            <div>
+                <div>
+                    <span className="text-sm">Input: {playerScore.score.input}</span>
+                </div>
+                <div className="flex flex-row justify-between">
+                    <span className="text-sm">WPM {playerScore.score.wordsPerMinute}</span>
+                    <span className="text-sm">Accuracy {playerScore.score.accuracy}</span>
+                </div>
+            </div>
         </div>
      );
 }

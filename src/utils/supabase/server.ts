@@ -1,9 +1,11 @@
 import { env } from "@/env";
 import { type Database } from "@/types/supabase";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
-import { type cookies } from "next/headers";
+import { cookies } from "next/headers";
 
-export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
+export const createClientServer = () => {
+  const cookieStore = cookies();
+
   return createServerClient<Database>(
     env.NEXT_PUBLIC_SUPABASE_URL,
     env.NEXT_PUBLIC_SUPABASE_ANON_KEY,

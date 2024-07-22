@@ -21,9 +21,7 @@ const NewGameForm = () => {
 
     const router = useRouter();
 
-    if(!user) {
-        router.push("/login");
-    }
+    
 
     const { mutate } = api.rooms.create.useMutation({
         onSuccess: (data) => {
@@ -41,8 +39,6 @@ const NewGameForm = () => {
         mutate();
     }
 
-    
-    
     return ( 
         <Card className="flex-1 flex flex-col">
             <CardHeader className="text-3xl text-center font-semibold">

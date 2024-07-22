@@ -213,9 +213,6 @@ const MainGame = ({roomId}: {roomId: string}) => {
                 {playersScores.map((playerScore, index) => 
                             <ParticipantEntry key={`participant ${index}`} playerScore={playerScore} isThisPlayer={user?.id === playerScore.profile.id}/>
                         )}
-                {playersScores.map((playerScore, index) => 
-                            <ParticipantEntry key={`participant ${index}`} playerScore={playerScore} isThisPlayer={user?.id === playerScore.profile.id}/>
-                        )}
                 </div>
                 <div className="flex-1 flex flex-col w-full bg-blue-300">
                     <div className="flex-1 p-3 bg-primary/20">

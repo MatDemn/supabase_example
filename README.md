@@ -30,7 +30,10 @@ This project is using websocket server, which is located in "webhookServer" dire
 You also have to install it by typing: `npm install`.
 
 
+## How to play it?
 
+Just type in localhost:3000 on two different browsers and log in with google.
+First player has to create a game and second one has to type in room id to join. Then any of them can start a new game. After 60 seconds the game will finish and whole process starts again.
 
 
 ## Most important features:
